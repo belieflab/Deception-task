@@ -17,6 +17,7 @@ file_put_contents($name, $data);
     <script src="jsPsych-master//plugins/jspsych-image-keyboard-response.js"></script>
     <script src="jsPsych-master//plugins/jspsych-survey-likert.js"></script>
     <script src="jsPsych-master//plugins/jspsych-html-button-response.js"></script>
+    <script src="jsPsych-master//plugins/jspsych-image-button-response.js"></script>
     <link href="jsPsych-master//css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <link rel="stylesheet" type="text/css" href="css/style.css?v=<?php echo time(); ?>">"
   </head>
@@ -137,11 +138,8 @@ file_put_contents($name, $data);
       type: "html-keyboard-response",
       stimulus: '<p style="color:white;"> You must decide whether each image has more "scene" or more "face", and press the response key for either "scene" or "face".  </p> ' +
       '<p style="color:white;"> You will be asked to rate your confidence of your classification after choosing. </p>'+
-      '<p style="color:white;"> Here are the response keys: </p>'+
-      '<p style="color:white;"> Scene &#8594 <q>,</q> (comma)</p>'+
-        '<p style="color:white;"> Face &#8594 <q>.</q> (period)</p>'+
-        '<p style="color:white;">Press either response key to continue.</p>',
-      choices: [',', '.'],
+        '<p style="color:white;">Press the space bar to continue.</p>',
+      choices: [' '],
     };
     timeline.push(instructions_2);
 
@@ -239,7 +237,6 @@ var likert_train_page = {
       type: "html-keyboard-response",
       stimulus: '<p style="color:white;"> There will be 80 images shown in Phase I, followed by new instructions for Phase II. </p>'+
       '<p style="color:white;"> In Phase I, you will recieve <strong>3 cents</strong> for every correct classification. </p>'+
-      '<p style="color:white;"> Remember the response keys are <q>,</q>  (Scene) and <q>.</q> (Face). </p>'+
       '<p style="color:white;">Let us begin! Press the space bar when you are ready to start the first section.</p> ',
       choices: [' '],
       post_trial_gap: 2000
@@ -545,30 +542,26 @@ var likert_train_page = {
     var tick_amount2 = 0.005;
 
     var c2testA = {
-      type: "image-keyboard-response",
+      type: 'image-button-response',
       stimulus: jsPsych.timelineVariable('stimulus'),
-      choices: [',', '.'],
+      choices: ['Scene', 'Face'],
       data: jsPsych.timelineVariable('data'),
-      prompt: 
-      "<p style='color:white;position: absolute; bottom: 20%; left: 36%;'> <strong>Scene</strong> &#8594  <strong>,</strong> (comma)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<strong> Face </strong> &#8594 <strong>.</strong> (period)</p>"+
-      '<p style="color:white;position: absolute; bottom: 80%; left: 50%%;"> Please classify the image for the 1st time </p>',
+      prompt: '<p style="color:white;position: absolute; bottom: 80%; left: 50%%;"> Please classify the image for the 1st time </p>',
       on_finish: function(data){
-        data.C2A = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+        data.C2A = data.response;
         progress_bar2 += tick_amount2;
         jsPsych.setProgressBar(progress_bar2);
         
     }
   }
     var c2testB = {
-      type: "image-keyboard-response",
+      type: 'image-button-response',
       stimulus: jsPsych.timelineVariable('stimulus'),
-      choices: [',', '.'],
+      choices: ['Scene', 'Face'],
       data: jsPsych.timelineVariable('data'),
-      prompt: 
-      "<p style='color:white;position: absolute; bottom: 20%; left: 36%;'> <strong>Scene</strong> &#8594  <strong>,</strong> (comma)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<strong> Face </strong> &#8594 <strong>.</strong> (period)</p>"+
-      '<p style="color:white;position: absolute; bottom: 80%; left: 50%%;"> Please classify the image for the 2nd time </p>',
+      prompt: '<p style="color:white;position: absolute; bottom: 80%; left: 50%%;"> Please classify the image for the 2nd time </p>',
       on_finish: function(data){
-        data.C2B = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+        data.C2B = data.response;
         progress_bar2 += tick_amount2;
         jsPsych.setProgressBar(progress_bar2);
         
@@ -803,6 +796,7 @@ var if_node1 = {
   var instructions_12 = {
       type: "html-keyboard-response",
       stimulus: '<p style="color:white;"> Finding your partner for the HIT...let us begin! </p> '+
+      '<p <div class="loader">Loading...</div> </p>'+
       '<p style="color:white;">Press the space bar when you are ready to start </p>',
       //'p style="color:white;"> Your partner: </p>'+
       //'p <div class="card"> <img src="images/avator.png" alt="Avatar" style="width:100%"><div class="container"> <h4><b> Your partner</b></h4><p> Occuptation: Doctor </p> </div></div> </p>'+
