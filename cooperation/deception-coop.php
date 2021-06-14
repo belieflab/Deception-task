@@ -842,7 +842,7 @@ var if_node1 = {
 
 
     // COMPLETION MESSAGE: Completed Classification Phase
-    var link = "https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_9R1qVlrGBboxhdz"
+    var link = "https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_3WtH6yUsp996JZc"
     var instructions_16 = {
       type: "html-keyboard-response",
       stimulus: '<p style="color:white;">You have now completed the task! Saving data...PLEASE DO NOT CLOSE THIS BROWSER until you complete the second part.</p> ' +
@@ -862,7 +862,7 @@ var if_node1 = {
 
 function saveData(name, data){
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'full-mot-perception-coop.php'); // 'write_data.php' is the path to the php file described above.
+  xhr.open('POST', 'deception-coop.php'); // 'write_data.php' is the path to the php file described above.
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({filename: name, filedata: data}));
 }
@@ -891,7 +891,7 @@ function saveData(name, data){
         timeline: timeline,
         show_progress_bar: true,
         auto_update_progress_bar: false,
-        on_finish: function(){ saveData("full-mot-perception-coop_" + workerID, jsPsych.data.get().csv()); }
+        on_finish: function(){ saveData("deception-coop_" + workerID, jsPsych.data.get().csv()); }
         //on_finish: function(){
           //jsPsych.data.get().filter([{test_part: 'test'},{test_part: 'prediction'},{test_part: 'c2_test'}]).localSave("csv", `test-self-deception-data.csv`);
             //jsPsych.data.displayData(); 
