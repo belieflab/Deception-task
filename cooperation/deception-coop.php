@@ -88,7 +88,7 @@ file_put_contents($name, $data);
 </div>
 <div id="errorMessageHolder" class="error centeredDiv">
   <p id="mobileBrowserErrorMessage">You cannot access this test from a mobile browser. Please use a desktop computer to complete the task.</p>
-  <p id="workerIDErrorMessage">You are ineligible for this task, since your worker ID has been recorded as participating in this task already. 
+  <p id="workerIdErrorMessage">You are ineligible for this task, since your worker ID has been recorded as participating in this task already. 
     Please return the HIT.</p>
 </div>
 
@@ -794,7 +794,7 @@ var if_node1 = {
   var test_procedure_c2block1 = {
         //timeline: [c2testA, c2testB, likert_page],
         timeline: [c2testA, likert_page, advice_choose, if_node1, if_node2, c2testB, likert_page],
-        timeline_variables: stimuli_c2block1,
+        timeline_variables: c1_train_stimuli,//stimuli_c2block1,
         randomize_order: true
    
   }
@@ -899,7 +899,7 @@ function saveData(name, data){
       else
         return results[1];
     }
-    var workerID = getParamFromURL( 'workerId' );
+    var workerId = getParamFromURL( 'workerId' );
 
     /* start the experiment */
     function startExperiment(){
@@ -907,7 +907,7 @@ function saveData(name, data){
         timeline: timeline,
         show_progress_bar: true,
         auto_update_progress_bar: false,
-        on_finish: function(){ saveData("deception-coop_" + workerID, jsPsych.data.get().csv()); }
+        on_finish: function(){ saveData("deception-coop_" + workerId, jsPsych.data.get().csv()); }
         //on_finish: function(){
           //jsPsych.data.get().filter([{test_part: 'test'},{test_part: 'prediction'},{test_part: 'c2_test'}]).localSave("csv", `test-self-deception-data.csv`);
             //jsPsych.data.displayData(); 
