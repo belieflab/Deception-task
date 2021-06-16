@@ -581,6 +581,9 @@ var likert_train_page = {
     response: true, 
     // don't save the stimulus
     stimulus: false
+  },
+  on_finish: function(data){
+        data.advice_choose= data.response;
   }
   }
 
@@ -588,6 +591,9 @@ var likert_train_page = {
   type: "html-button-response",
   stimulus: '<p style="color:white;"> What would you like to tell your partner about the image? </p>',
   choices: ['Face', 'Scene'],
+  on_finish: function(data){
+        data.image = jsPsych.timelineVariable('stimulus');
+  }
  }
 
 
@@ -598,7 +604,11 @@ var recieve_advice = {
                 '<p style="color:white;"> Press the space bar to continue </p>';
   }}],
 
-  choices: [' ']
+  choices: [' '],
+  on_finish: function(data){
+        data.partner_advice= jsPsych.timelineVariable('predict_bet');
+        data.image = jsPsych.timelineVariable('stimulus');
+  }
 }
 
 var random_outcome = {
@@ -606,6 +616,10 @@ var random_outcome = {
     choices: [' '],
     stimulus: function(){return '<p style="color:white;"> You have been randomly selected to ' +jsPsych.timelineVariable('random', true)+ '</p>'+
       '<p style="color:white;"> Press the space bar to continue </p>'},
+      on_finish: function(data){
+        data.random_outcome= jsPsych.timelineVariable('random');
+        data.image = jsPsych.timelineVariable('stimulus');
+  }
 
 }
 
@@ -643,6 +657,10 @@ var advice_outcome_give1 =
     stimulus: function(){return '<p style="color:white;"> You elected to give advice, and your partner ' +jsPsych.timelineVariable('give_words', true)+'</p>'+
       '<p style="color:white;"> Press the space bar to continue </p>'},
     choices: [' '],
+    on_finish: function(data){
+        data.give_outcome= jsPsych.timelineVariable('give_words');
+        data.image = jsPsych.timelineVariable('stimulus');
+  }
 }
 
 
@@ -682,6 +700,10 @@ var advice_outcome_recieve1 =
     choices: [' '],
     stimulus: function(){return '<p style="color:white;"> You elected to recieve advice, and your partner ' +jsPsych.timelineVariable('recieve_words', true)+'</p>'+
       '<p style="color:white;"> Press the space bar to continue </p>'},
+      on_finish: function(data){
+        data.give_outcome= jsPsych.timelineVariable('recieve_words');
+        data.image = jsPsych.timelineVariable('stimulus');
+  }
 }
 
 
@@ -733,7 +755,7 @@ var if_node1 = {
         // and check which key was pressed
        // 0 for give advice, 1 for recieve advice! 
        //var advice_choice =[1 ,2 ,3];
-       var advice_choice = jsPsych.data.getLastTrialData().select('response').values
+       var advice_choice = jsPsych.data.getLastTrialData().select('advice_choose').values
         if(advice_choice == 0){
           // so this then shows a slide where it says they gave advice+their partner's response! 
             return true;
@@ -751,7 +773,7 @@ var if_node1 = {
         // and check which key was pressed
        // 0 for give advice, 1 for recieve advice! 
        //var advice_choice =[1 ,2 ,3];
-       var advice_choice = jsPsych.data.getLastTrialData().select('response').values
+       var advice_choice = jsPsych.data.getLastTrialData().select('advice_choose').values
         if(advice_choice == 1){
           // so this then shows a slide where it says they gave advice+their partner's response! 
             return true;
@@ -783,7 +805,7 @@ var if_node1 = {
   var instructions_13 = {
       type: "html-keyboard-response",
       stimulus: '<p style="color:white;"> Remember: your goal is to correctly identify as many images as possible, and  <strong> the performance of your partner will not impact your score. </strong></p> '+
-      '<p style="color:white;"> You will recieve a monetary bonus of $1 if you are among the top scorers on the HIT. </p> '+
+      '<p style="color:white;"> You will recieve a monetary bonus of $2 if you are among the top scorers on the HIT. </p> '+
       '<p style="color:white;">Press the space bar when you are ready to start! </p>',
       //'p style="color:white;"> Your partner: </p>'+
       //'p <div class="card"> <img src="images/avator.png" alt="Avatar" style="width:100%"><div class="container"> <h4><b> Your partner</b></h4><p> Occuptation: Doctor </p> </div></div> </p>'+
