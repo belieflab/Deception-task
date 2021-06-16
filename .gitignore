@@ -1,0 +1,5 @@
+.DS_Store
+cooperation/data/*
+competition/data/*
+!cooperation/data/.gitkeep
+!competition/data/.gitkeep
