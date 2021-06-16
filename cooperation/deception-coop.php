@@ -794,7 +794,7 @@ var if_node1 = {
   var test_procedure_c2block1 = {
         //timeline: [c2testA, c2testB, likert_page],
         timeline: [c2testA, likert_page, advice_choose, if_node1, if_node2, c2testB, likert_page],
-        timeline_variables: c1_train_stimuli,//stimuli_c2block1,
+        timeline_variables: stimuli_c2block1,
         randomize_order: true
    
   }
@@ -908,10 +908,6 @@ function saveData(name, data){
         show_progress_bar: true,
         auto_update_progress_bar: false,
         on_finish: function(){ saveData("deception-coop_" + workerId, jsPsych.data.get().csv()); }
-        //on_finish: function(){
-          //jsPsych.data.get().filter([{test_part: 'test'},{test_part: 'prediction'},{test_part: 'c2_test'}]).localSave("csv", `test-self-deception-data.csv`);
-            //jsPsych.data.displayData(); 
-        //}
       });
     }
   </script>
