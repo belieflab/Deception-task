@@ -395,7 +395,8 @@ var likert_train_page = {
 
     var test_procedure_block1 = {
       timeline: [fixation, test, likert_page],
-      timeline_variables: stimuli_block1_test,
+      timeline_variables: c1_train_stimuli, //training stimuli
+      // timeline_variables: stimuli_block1_test,
       randomize_order: true
     }
 
@@ -799,7 +800,7 @@ var if_node1 = {
    
   }
 
-  timeline.push(practice_procedure_c2block1);
+  // timeline.push(practice_procedure_c2block1);
 
   //push extra instructions that contain the GOAL and the bonus information! 
   var instructions_13 = {
@@ -817,20 +818,35 @@ var if_node1 = {
 
   var instructions_12 = {
       type: "html-keyboard-response",
-      stimulus: '<p style="color:white;"> Finding your partner for the HIT...let us begin! </p> '+
+      stimulus: '<p style="color:white;"> Finding your partner for the HIT... </p> '+
       '<p <div class="loader">Loading...</div> </p>'+
-      '<p style="color:white;">Press the space bar when you are ready to start </p>',
+      '<p style="color:white;">&nbsp</p>',
+      // '<p style="color:white;">Press the space bar when you are ready to start </p>',
+      //'p style="color:white;"> Your partner: </p>'+
+      //'p <div class="card"> <img src="images/avator.png" alt="Avatar" style="width:100%"><div class="container"> <h4><b> Your partner</b></h4><p> Occuptation: Doctor </p> </div></div> </p>'+
+      //'<p style="color:white;"> Press the space bar when you are ready to start the second half of the HIT.</p> ',
+      trial_duration: 7000,
+      choices: [' '],
+      // post_trial_gap: 2500
+    };
+    timeline.push(instructions_12);
+
+
+  var instructions_14 = {
+      type: "html-keyboard-response",
+      stimulus: '<p style="color:white;"> Finding your partner for the HIT... </p> '+
+      '<p <div class="loader">Loading...</div> </p>'+
+      '<p style="color:white;">Press the space bar when you are ready to start!</p>',
       //'p style="color:white;"> Your partner: </p>'+
       //'p <div class="card"> <img src="images/avator.png" alt="Avatar" style="width:100%"><div class="container"> <h4><b> Your partner</b></h4><p> Occuptation: Doctor </p> </div></div> </p>'+
       //'<p style="color:white;"> Press the space bar when you are ready to start the second half of the HIT.</p> ',
       choices: [' '],
       post_trial_gap: 2500
     };
-    timeline.push(instructions_12);
+    timeline.push(instructions_14);
 
 
-
-  timeline.push(test_procedure_c2block1);
+  // timeline.push(test_procedure_c2block1);
 //experimental manipulation? 
 
 
@@ -854,23 +870,53 @@ var if_node1 = {
    
   //}
   
+  let save_data = {
+    type: "html-keyboard-response",
+    stimulus: "<p style='color:white;'>Data saving...</p>"+
+    '<div class="sk-cube-grid">'+
+  '<div class="sk-cube sk-cube1"></div>'+
+  '<div class="sk-cube sk-cube2"></div>'+
+  '<div class="sk-cube sk-cube3"></div>'+
+  '<div class="sk-cube sk-cube4"></div>'+
+  '<div class="sk-cube sk-cube5"></div>'+
+  '<div class="sk-cube sk-cube6"></div>'+
+  '<div class="sk-cube sk-cube7"></div>'+
+  '<div class="sk-cube sk-cube8"></div>'+
+  '<div class="sk-cube sk-cube9"></div>'+
+  '</div>'+
+    "<p style='color:white;'>Do not close this window until the text dissapears.</p>",
   
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 5000,
+    on_finish: function(){
+      saveData("deception-coop_" + workerId, jsPsych.data.get().csv());
+  //     document.getElementById("unload").onbeforeunload='';
+  //     $(document).ready(function(){
+  //     $("body").addClass("showCursor"); // returns cursor functionality
+  // });
+    }
+  };
 
 
-    // COMPLETION MESSAGE: Completed Classification Phase
-    var link = "https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_3WtH6yUsp996JZc"
-    var instructions_16 = {
+    timeline.push(save_data);
+
+    var link = "https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_3WtH6yUsp996JZc";
+
+    let end = {
       type: "html-keyboard-response",
-      stimulus: '<p style="color:white;">You have now completed the task! Saving data...PLEASE DO NOT CLOSE THIS BROWSER until you complete the second part.</p> ' +
-          '<p style="color:white;">BEFORE THE LINK DISAPPEARS please move on to the second part of the task at this link to obtain your completion code:</p> ' +
-          "<a href=" + link + ' target="_blank">' + link + "</a>",
+      stimulus:   '<p style="color:white;" >Thank you!</p>'+
+      '<p style="color:white;">You have successfully completed the experiment and your data has been saved.</p>'+
+      '<p style="color:white;">Please move on to the second part of the task at this link to obtain your completion code:</p> ' +
+      "<a href=" + link + ' target="_blank">' + link + "</a>",
       choices: jsPsych.NO_KEYS,
-      trial_duration: 40000,
       on_start: function(trial) {
         jsPsych.setProgressBar(1);
       }
     };
-    timeline.push(instructions_16);
+
+
+
+    timeline.push(end);
 
 
 
