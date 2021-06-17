@@ -796,11 +796,12 @@ var if_node1 = {
         //timeline: [c2testA, c2testB, likert_page],
         timeline: [c2testA, likert_page, advice_choose, if_node1, if_node2, c2testB, likert_page],
         timeline_variables: stimuli_c2block1,
+        // timeline_variables: c1_train_stimuli,
         randomize_order: true
    
   }
 
-  // timeline.push(practice_procedure_c2block1);
+  timeline.push(practice_procedure_c2block1);
 
   //push extra instructions that contain the GOAL and the bonus information! 
   var instructions_13 = {
@@ -846,29 +847,8 @@ var if_node1 = {
     timeline.push(instructions_14);
 
 
-  // timeline.push(test_procedure_c2block1);
-//experimental manipulation? 
+  timeline.push(test_procedure_c2block1);
 
-
-
-  //var test_procedure_c2block1 = {
- //       timeline: [c2testA, 
- //         {
- //           type: "html-keyboard-response",
-            //stimulus: //'
- //           stimulus: 
-                    //'<p style="color:white;"> Your partner bet 7 cents that the next image has more </p> ' +
- //                   function(){
- //                    return '<p style="color:white;"> Your partner bet 7 cents that the next image has more <br> <strong>'+jsPsych.timelineVariable('predict_bet', true)+'</strong> </p>';
- //                    },
-                    
- //       choices: jsPsych.NO_KEYS,
-  //      trial_duration: 5000,
-  //      },fixation, c2testB, likert_page],
-  //      timeline_variables: stimuli_c2block1,
-  //      randomize_order: true
-   
-  //}
   
   let save_data = {
     type: "html-keyboard-response",
@@ -960,11 +940,7 @@ function saveData(name, data){
 
 <footer>
 
-<!-- <script type="text/javascript" src="https://perceptionexperiments.net/SDU/Libraries/Timeout.js"></script> -->
-<!-- <script type="text/javascript" src="https://perceptionexperiments.net/SDU/Libraries/lodash.js"></script> -->
-<!-- <script type="text/javascript" src="https://perceptionexperiments.net/SDU/Libraries/seedrandom.js"></script> -->
 <script type="text/javascript" src="//code.jquery.com/jquery-git.js"></script>
-<!-- <script type="text/javascript" src="https://perceptionexperiments.net/SDU/Libraries/jquery.csv.js"></script> -->
 
 <script>
 // show page when loaded 
